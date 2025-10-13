@@ -143,18 +143,6 @@ Færdig og kalkulere discount</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>150</x>
-      <y>200</y>
-      <w>410</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes>lt=.&gt;
-Returnere Customer</panel_attributes>
-    <additional_attributes>390.0;20.0;10.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>150</x>
       <y>160</y>
       <w>410</w>
       <h>40</h>
@@ -162,5 +150,17 @@ Returnere Customer</panel_attributes>
     <panel_attributes>lt=-&gt;&gt;&gt;
 Find Customer (String email)</panel_attributes>
     <additional_attributes>10.0;20.0;390.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>150</x>
+      <y>200</y>
+      <w>410</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+Returnere Customer</panel_attributes>
+    <additional_attributes>390.0;20.0;10.0;20.0</additional_attributes>
   </element>
 </diagram>
