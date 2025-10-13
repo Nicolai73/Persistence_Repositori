@@ -4,8 +4,8 @@
   <element>
     <id>UMLActor</id>
     <coordinates>
-      <x>150</x>
-      <y>120</y>
+      <x>120</x>
+      <y>50</y>
       <w>80</w>
       <h>110</h>
     </coordinates>
@@ -15,8 +15,8 @@
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>520</x>
-      <y>190</y>
+      <x>490</x>
+      <y>120</y>
       <w>100</w>
       <h>30</h>
     </coordinates>
@@ -26,8 +26,8 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>180</x>
-      <y>210</y>
+      <x>150</x>
+      <y>140</y>
       <w>30</w>
       <h>520</h>
     </coordinates>
@@ -37,8 +37,8 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>560</x>
-      <y>210</y>
+      <x>530</x>
+      <y>140</y>
       <w>30</w>
       <h>520</h>
     </coordinates>
@@ -48,19 +48,19 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>180</x>
+      <x>150</x>
       <y>240</y>
       <w>410</w>
       <h>40</h>
     </coordinates>
     <panel_attributes>lt=-&gt;&gt;&gt;
-Registrere Ordre (Customer)</panel_attributes>
+Registrere Ordre (Customer customer)</panel_attributes>
     <additional_attributes>10.0;20.0;390.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>180</x>
+      <x>150</x>
       <y>370</y>
       <w>410</w>
       <h>40</h>
@@ -72,7 +72,7 @@ Placere produkt i kurv og reservere</panel_attributes>
   <element>
     <id>UMLFrame</id>
     <coordinates>
-      <x>130</x>
+      <x>100</x>
       <y>290</y>
       <w>500</w>
       <h>140</h>
@@ -83,20 +83,20 @@ Placere produkt i kurv og reservere</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>180</x>
+      <x>150</x>
       <y>310</y>
       <w>410</w>
       <h>40</h>
     </coordinates>
     <panel_attributes>lt=-&gt;&gt;&gt;
-Find Produkt(Name, Quantity)</panel_attributes>
+Find Produkt(String name, int quantity)</panel_attributes>
     <additional_attributes>10.0;20.0;390.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>180</x>
-      <y>560</y>
+      <x>150</x>
+      <y>550</y>
       <w>410</w>
       <h>40</h>
     </coordinates>
@@ -107,8 +107,8 @@ Færdigøre ordre</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>180</x>
-      <y>500</y>
+      <x>150</x>
+      <y>490</y>
       <w>410</w>
       <h>40</h>
     </coordinates>
@@ -119,8 +119,8 @@ Returnere ordre, discount og freight</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>300</x>
-      <y>180</y>
+      <x>270</x>
+      <y>110</y>
       <w>160</w>
       <h>40</h>
     </coordinates>
@@ -130,13 +130,37 @@ Returnere ordre, discount og freight</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>180</x>
-      <y>450</y>
+      <x>150</x>
+      <y>440</y>
       <w>410</w>
       <h>40</h>
     </coordinates>
     <panel_attributes>lt=-&gt;&gt;&gt;
 Færdig og kalkulere discount</panel_attributes>
+    <additional_attributes>10.0;20.0;390.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>150</x>
+      <y>200</y>
+      <w>410</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+Returnere Customer</panel_attributes>
+    <additional_attributes>390.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>150</x>
+      <y>160</y>
+      <w>410</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;&gt;
+Find Customer (String email)</panel_attributes>
     <additional_attributes>10.0;20.0;390.0;20.0</additional_attributes>
   </element>
 </diagram>
