@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <zoom_level>8</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>600</x>
+      <y>192</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>:SaleOrderUI
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>480</x>
+      <y>192</y>
+      <w>144</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+
+
+1. findCustomer
+2. createSaleOrder
+3. addProductToSaleOrder
+4. confirmSaleOrder</panel_attributes>
+    <additional_attributes>150.0;20.0;20.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>584</x>
+      <y>352</y>
+      <w>112</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>:SaleOrderController</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>632</x>
+      <y>208</y>
+      <w>328</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+1.1 customer = findCustomer(email: String): Customer
+2.1 saleorder = createSaleOrder(): SaleOrder
+3.1 product = addProductToSaleOrder(name: String): Product
+4.1 ok = confirmSaleOrder(): boolean</panel_attributes>
+    <additional_attributes>10.0;180.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>128</x>
+      <y>352</y>
+      <w>112</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>:CustomerController</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1024</x>
+      <y>352</y>
+      <w>112</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>:ProductController</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>128</x>
+      <y>440</y>
+      <w>112</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>:CustomerDB</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>128</x>
+      <y>528</y>
+      <w>112</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>:Customer
+(NEW)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1024</x>
+      <y>440</y>
+      <w>112</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>:ProductDB</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1024</x>
+      <y>528</y>
+      <w>112</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>:Product
+(NEW)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>232</x>
+      <y>344</y>
+      <w>368</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+1.1.1 customer = findCustomerByEmail(email: String): Customer</panel_attributes>
+    <additional_attributes>10.0;20.0;440.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>688</x>
+      <y>344</y>
+      <w>352</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+3.1.1 product = findProductByName(name: String): Product</panel_attributes>
+    <additional_attributes>420.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>584</x>
+      <y>536</y>
+      <w>112</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>:SaleOrderDB</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>392</x>
+      <y>544</y>
+      <w>112</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>:SaleOrder
+(NEW)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>896</x>
+      <y>552</y>
+      <w>112</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>:OrderLine
+(NEW)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>440</x>
+      <y>368</y>
+      <w>216</w>
+      <h>192</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+2.1.1 saleOrder &lt;&lt;create&gt;&gt;()
+3.3.1 addOrderLine(orderLine)
+1.2.1 addCustomer(customer)</panel_attributes>
+    <additional_attributes>10.0;220.0;250.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>176</x>
+      <y>368</y>
+      <w>336</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+1.1.1.1 customer = findCustomerEmail(email: String): Customer</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>176</x>
+      <y>456</y>
+      <w>240</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+1.1.1.1.1 customerEmail = getEmail(): String</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1072</x>
+      <y>368</y>
+      <w>328</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+3.1.1.1 product = findProductByName(name: String): Product</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1072</x>
+      <y>456</y>
+      <w>280</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+3.1.1.1.1 productName = getProductName(): String</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>632</x>
+      <y>368</y>
+      <w>336</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+3.2.1 orderLine = &lt;&lt;create&gt;&gt;(product: Product)
+</panel_attributes>
+    <additional_attributes>400.0;230.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>632</x>
+      <y>368</y>
+      <w>248</w>
+      <h>184</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+
+
+
+
+4.1.1 ok = addSaleOrder(saleOrder): boolean</panel_attributes>
+    <additional_attributes>10.0;210.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>
