@@ -1,0 +1,137 @@
+
+CREATE TABLE ZipTable (
+Zip INT PRIMARY KEY NOT NULL,
+City varchar(50) NOT NULL
+)
+
+CREATE TABLE Supplier (
+ID INT IDENTITY (1,1) PRIMARY KEY NOT NULL,
+Name varchar(50) NOT NULL,
+Address varchar(50) NOT NULL,
+Country varchar(50) NOT NULL,
+PhoneNo varchar(50) NOT NULL,
+Email varchar(50) NOT NULL,
+Zipcode INT NOT NULL FOREIGN KEY REFERENCES ZipTable(Zip)
+)
+
+CREATE TABLE Customer (
+ID INT IDENTITY (1,1) PRIMARY KEY NOT NULL,
+Fname varchar(50) NOT NULL,
+Lname varchar(50) NOT NULL,
+Address varchar(50) NOT NULL,
+PhoneNo varchar(50) NOT NULL,
+Email varchar(50) NOT NULL,
+Type INT NOT NULL,
+Zipcode INT NOT NULL FOREIGN KEY REFERENCES ZipTable(Zip)
+)
+
+CREATE TABLE [Product] (
+ID INT IDENTITY (1,1) PRIMARY KEY NOT NULL,
+ProductNumber INT UNIQUE NOT NULL,
+ProductName varchar(50) NOT NULL,
+MinStock int,
+Description varchar (500),
+SKU INT NOT NULL,
+Type INT
+)
+
+CREATE TABLE Freight (
+ID INT IDENTITY (10,10) PRIMARY KEY NOT NULL,
+Method varchar (50) NOT NULL,
+BaseCost INT NOT NULL,
+FreeThreshhold INT NOT NULL
+)
+
+CREATE TABLE Invoice (
+ID INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+PaymentDate DATE NOT NULL,
+Amount INT NOT NULL,
+Vat DECIMAL NOT NULL,
+TotalAmount DECIMAL NOT NULL
+)
+
+CREATE TABLE Discount (
+ID INT IDENTITY (1500,5) PRIMARY KEY NOT NULL,
+Type int NOT NULL,
+Amount INT NOT NULL,
+DiscountThreshhold INT NOT NULL
+)
+
+CREATE TABLE SaleOrder (
+OrderNumber INT IDENTITY (1,1) PRIMARY KEY NOT NULL,
+[Date] DATE NOT NULL,
+Amount INT NOT NULL,
+DeliveryStatus varchar(50) NOT NULL,
+DeliveryDate DATE,
+CustomerID INT NOT NULL FOREIGN KEY REFERENCES Customer(ID),
+DiscountID INT NOT NULL FOREIGN KEY REFERENCES Discount(ID),
+InvoiceID INT NOT NULL FOREIGN KEY REFERENCES Invoice(ID),
+FreightID INT NOT NULL FOREIGN KEY REFERENCES Freight(ID)
+)
+
+CREATE TABLE OrderlineItem (
+ID INT IDENTITY (350,3) PRIMARY KEY NOT NULL,
+Quantity INT NOT NULL,
+SaleOrderID INT NOT NULL FOREIGN KEY REFERENCES SaleOrder(OrderNumber),
+ProductID INT NOT NULL FOREIGN KEY REFERENCES [Product](ID)
+)
+
+CREATE TABLE ProductSupplier (
+ID INT IDENTITY (5,5) PRIMARY KEY NOT NULL,
+SupplierID INT NOT NULL FOREIGN KEY REFERENCES Supplier(ID),
+ProductID INT NOT NULL FOREIGN KEY REFERENCES [Product](ID)
+)
+
+CREATE TABLE SalePrice (
+ID INT IDENTITY (100,1) PRIMARY KEY NOT NULL,
+Timestamp DATE NOT NULL,
+Price INT NOT NULL,
+Type INT,
+ProductID INT NOT NULL FOREIGN KEY REFERENCES [Product](ID)
+)
+
+CREATE TABLE Warehouse (
+ID INT IDENTITY (300,1) PRIMARY KEY NOT NULL,
+Number INT,
+Name Varchar(50) NOT NULL,
+Description varchar (500)
+)
+
+create table stock (
+ID INT IDENTITY (500,1) PRIMARY KEY NOT NULL,
+AvailableQty INT NOT NULL,
+ReservedQty INT NOT NULL,
+ProductID INT NOT NULL FOREIGN KEY REFERENCES [Product](ID),
+WarehouseID INT NOT NULL FOREIGN KEY REFERENCES Warehouse(ID)
+)
+
+
+
+CREATE TABLE MusicTable (
+ID INT IDENTITY (100,5) PRIMARY KEY NOT NULL,
+[Format] varchar(50),
+Artist varchar(50),
+ProductID INT NOT NULL FOREIGN KEY REFERENCES [Product](ID)
+)
+
+CREATE TABLE ClothingTable (
+ID INT IDENTITY (100,3) PRIMARY KEY NOT NULL,
+Size varchar(50),
+Colour varchar(50),
+ProductID INT NOT NULL FOREIGN KEY REFERENCES [Product](ID)
+)
+
+CREATE TABLE EquipmentTable (
+ID INT IDENTITY (200,2) PRIMARY KEY NOT NULL,
+Material varchar(50),
+Style varchar(50),
+ProductID INT NOT NULL FOREIGN KEY REFERENCES [Product](ID)
+)
+
+CREATE TABLE GunReplicaTable (
+ID INT IDENTITY (570,2) PRIMARY KEY NOT NULL,
+Calibre varchar(50),
+Material varchar(50),
+ProductID INT NOT NULL FOREIGN KEY REFERENCES [Product](ID)
+)
+
