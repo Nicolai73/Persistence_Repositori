@@ -14,7 +14,7 @@ public class DBProduct implements ProductDAO {
 
 	PreparedStatement pstmt;
 
-	DBProduct() {
+	public DBProduct() {
 
 	}
 
