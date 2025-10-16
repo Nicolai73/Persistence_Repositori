@@ -17,6 +17,11 @@ public class ProductCtrl {
 		return PDAO.getProductQuantityByName(name);
 	}
 	
+	public String findByName(String name) throws DataAccessException {
+		System.out.println(PDAO.getProductByName(name));
+		return PDAO.getProductByName(name);
+	}
+	
 	public Orderline createProducts(String name, int quantity) throws DataAccessException {
 		System.out.println(PDAO.createProductUnits(name, quantity));
 		return PDAO.createProductUnits(name, quantity);
