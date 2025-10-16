@@ -7,18 +7,19 @@ import model.*
 	
 	private List<Orderline> orderlines = new ArrayList<>();
 	
-	private static Date date;
-	private static int amount;
-	private static String deliveryStatus;
-	private static Date deliveryDate;
-	private static int customerID;
-	private static int discountID;
-	private static int invoiceID;
-	private static int freightID;
+	private Date date;
+	private int amount;
+	private String deliveryStatus;
+	private Date deliveryDate;
+	private int customerID;
+	private int discountID;
+	private int invoiceID;
+	private int freightID;
+	private int orderNumber;
 	
-	
-	public SaleOrder(Date date, int amount, String deliveryStatus, Date deliveryDate, int customerID, int discountID,
-			int invoiceID, int freightID) {
+	public SaleOrder(List<Orderline> orderlines, Date date, int amount, String deliveryStatus, Date deliveryDate,
+			int customerID, int discountID, int invoiceID, int freightID, int orderNumber) {
+		this.orderlines = orderlines;
 		this.date = date;
 		this.amount = amount;
 		this.deliveryStatus = deliveryStatus;
@@ -27,10 +28,21 @@ import model.*
 		this.discountID = discountID;
 		this.invoiceID = invoiceID;
 		this.freightID = freightID;
+		this.orderNumber = orderNumber;
+	}
+	
+	
+	public List<Orderline> getOrderlines() {
+		return orderlines;
 	}
 
 
-	public static Date getDate() {
+	public void setOrderlines(List<Orderline> orderlines) {
+		this.orderlines = orderlines;
+	}
+
+
+	public Date getDate() {
 		return date;
 	}
 
@@ -40,7 +52,7 @@ import model.*
 	}
 
 
-	public static int getAmount() {
+	public int getAmount() {
 		return amount;
 	}
 
@@ -50,7 +62,7 @@ import model.*
 	}
 
 
-	public static String getDeliveryStatus() {
+	public String getDeliveryStatus() {
 		return deliveryStatus;
 	}
 
@@ -60,7 +72,7 @@ import model.*
 	}
 
 
-	public static Date getDeliveryDate() {
+	public Date getDeliveryDate() {
 		return deliveryDate;
 	}
 
@@ -70,7 +82,7 @@ import model.*
 	}
 
 
-	public static int getCustomerID() {
+	public int getCustomerID() {
 		return customerID;
 	}
 
@@ -80,7 +92,7 @@ import model.*
 	}
 
 
-	public static int getDiscountID() {
+	public int getDiscountID() {
 		return discountID;
 	}
 
@@ -90,7 +102,7 @@ import model.*
 	}
 
 
-	public static int getInvoiceID() {
+	public int getInvoiceID() {
 		return invoiceID;
 	}
 
@@ -100,7 +112,7 @@ import model.*
 	}
 
 
-	public static int getFreightID() {
+	public int getFreightID() {
 		return freightID;
 	}
 
@@ -108,23 +120,26 @@ import model.*
 	public void setFreightID(int freightID) {
 		this.freightID = freightID;
 	}
-	
-	public List<Orderline> getOrderlines() {
-		return orderlines;
-	}
-	
-	public void addOrderline(Orderline orderline) {
-		orderlines.add(orderline);
+
+
+	public int getOrderNumber() {
+		return orderNumber;
 	}
 
 
 	public void setOrderNumber(int orderNumber) {
-		// TODO Auto-generated method stub
-		
+		this.orderNumber = orderNumber;
 	}
 
+<<<<<<< Updated upstream
 	dsdsd
 
 dsdsd
+=======
 
+>>>>>>> Stashed changes
+
+	
+	
 }
+	

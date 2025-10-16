@@ -1,65 +1,70 @@
 package db;
 
 import model.SaleOrder;
+import model.Customer;
 import model.Orderline;
 
 import java.sql.*;
 import java.util.List;
 
 public class DBSaleOrder implements SaleOrderDAO {
-
-    // --- SQL (bracket [Date] because DATE is reserved) ---
     private static final String PS_INSERT = "INSERT INTO SaleOrder VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String PS_SELECT_BY_ORDERNUMBER ="SELECT OrderNumber, FROM SaleOrder WHERE OrderNumber = ?";
-    private static final String PS_SELECT ="SELECT OrderNumber, FROM SaleOrder";
-    private static final String PS_INSERT_ORDERLINE ="INSERT INTO OrderlineItem VALUES (?, ?, ?)";
-    private static final String PS_SELECT_BY_ID ="SELECT ID, Quantity, SaleOrderID, ProductID FROM OrderlineItem WHERE ID = ?";
-    private static final String PS_SELECT_FROM_ALL_ORDERLINE ="SELECT ID, Quantity, SaleOrderID, ProductID FROM OrderlineItem";
+    private static final String PS_SELECT_BY_ID = "SELECT OrderNumber FROM SaleOrder WHERE OrderNumber = ?";
+    private static final String PS_INSERT_LINE = "INSERT INTO OrderlineItem VALUES (?, ?, ?)";
 
     private PreparedStatement insertPS;
-    private PreparedStatement selectByOrderNumberPS;
-    private PreparedStatement selectPS;
+    private PreparedStatement selectByIdPS;
+    private PreparedStatement insertLinePS;
 
-    private PreparedStatement insertOlPS;
-    private PreparedStatement selectByIDPS;
-    private PreparedStatement selectAllOrderlinePS;
-
-    public DBSaleOrder() throws DataAccessException {
-        initPreparedStatement();
+    public DBSaleOrder() throws SQLException, DataAccessException {
+        initPreparedStatements();
     }
 
-    private void initPreparedStatement() throws DataAccessException {
-        Connection connection = DBConnection.getInstance().getConnection();
-        try {
-            insertPS = connection.prepareStatement(PS_INSERT, Statement.RETURN_GENERATED_KEYS);
-            setSelectByOrderNumberPS(connection.prepareStatement(PS_SELECT_BY_ORDERNUMBER));
-            setSelectPS(connection.prepareStatement(PS_SELECT));
+    private void initPreparedStatements() throws SQLException, DataAccessException {
+        Connection con = DBConnection.getInstance().getConnection();
+        insertPS    = con.prepareStatement(PS_INSERT, Statement.RETURN_GENERATED_KEYS);
+        selectByIdPS = con.prepareStatement(PS_SELECT_BY_ID);
+        insertLinePS = con.prepareStatement(PS_INSERT_LINE, Statement.RETURN_GENERATED_KEYS);
+    }
 
-            insertOlPS = connection.prepareStatement(PS_INSERT_ORDERLINE, Statement.RETURN_GENERATED_KEYS);
-            setSelectByIDPS(connection.prepareStatement(PS_SELECT_BY_ID));
-            setSelectAllOrderlinePS(connection.prepareStatement(PS_SELECT_FROM_ALL_ORDERLINE));
+    @Override
+    public SaleOrder findById(int orderNumber) throws DataAccessException {
+        try {
+            selectByIdPS.setInt(1, orderNumber);
+            try (ResultSet rs = selectByIdPS.executeQuery()) {
+                if (!rs.next()) return null;
+
+                SaleOrder so = new SaleOrder();
+                so.setOrderNumber(rs.getInt("OrderNumber"));
+                so.setDate(rs.getDate("Date"));
+                so.setAmount(rs.getInt("Amount"));
+                so.setDeliveryStatus(rs.getString("DeliveryStatus"));
+                so.setDeliveryDate(rs.getDate("DeliveryDate"));
+                so.setCustomerID(rs.getInt("CustomerID"));
+                so.setDiscountID(rs.getInt("DiscountID"));
+                so.setInvoiceID(rs.getInt("InvoiceID"));
+                so.setFreightID(rs.getInt("FreightID"));
+                return so;
+            }
         } catch (SQLException e) {
-            throw new DataAccessException("Could not prepare statements", e);
+            throw new DataAccessException("findById failed", e);
         }
     }
 
     @Override
-    public SaleOrder insert(SaleOrder saleOrder) throws DataAccessException {
-        Connection connection = DBConnection.getInstance().getConnection();
-
+    public int insert(SaleOrder saleOrder) throws DataAccessException {
+        Connection con = DBConnection.getInstance().getConnection();
         boolean oldAutoCommit;
         try {
-            oldAutoCommit = connection.getAutoCommit();
-            connection.setAutoCommit(false);
+            oldAutoCommit = con.getAutoCommit();
         } catch (SQLException e) {
-            throw new DataAccessException("Could not start transaction", e);
+            throw new DataAccessException("Could not read autocommit", e);
         }
 
-        int orderNumber = 0;
-        try {            
-            java.sql.Date sqlDate = SaleOrder.getDate();
-            insertPS.setDate(1, sqlDate);
+        try {
+            con.setAutoCommit(false);
 
+            insertPS.setDate(1, SaleOrder.getDate());
             insertPS.setInt(2, SaleOrder.getAmount());
             insertPS.setString(3, SaleOrder.getDeliveryStatus());
 
@@ -76,74 +81,63 @@ public class DBSaleOrder implements SaleOrderDAO {
 
             insertPS.executeUpdate();
 
-            try (ResultSet rs = insertPS.getGeneratedKeys()) {
-                if (rs.next()) {
-                    orderNumber = rs.getInt(1);
-                } else {
+            int newOrderNumber;
+            try (ResultSet keys = insertPS.getGeneratedKeys()) {
+                if (!keys.next()) {
                     throw new DataAccessException("Insert SaleOrder: no generated key returned", null);
                 }
+                newOrderNumber = keys.getInt(1);
             }
-            saleOrder.setOrderNumber(orderNumber);
+            saleOrder.setOrderNumber(newOrderNumber);
 
-            // --- insert lines ---
+            // Lines
             List<Orderline> lines = saleOrder.getOrderlines();
             if (lines != null) {
                 for (Orderline ol : lines) {
-                    insertOlPS.setInt(1, ol.getQuantity());
-                    insertOlPS.setInt(2, orderNumber);           // SaleOrderID FK
-                    insertOlPS.setInt(3, ol.getProductId());
-                    insertOlPS.executeUpdate();
+                    insertLinePS.setInt(1, ol.getQuantity());
+                    insertLinePS.setInt(2, newOrderNumber);
+                    insertLinePS.setInt(3, ol.getProductId()); // IMPORTANT: matches [Product].ID
+                    insertLinePS.executeUpdate();
 
-                    try (ResultSet lineKeys = insertOlPS.getGeneratedKeys()) {
-                        if (lineKeys.next()) {
-                            ol.setId(lineKeys.getInt(1));
+                    try (ResultSet lkeys = insertLinePS.getGeneratedKeys()) {
+                        if (lkeys.next()) {
+                            ol.setId(lkeys.getInt(1));
                         }
                     }
                 }
             }
 
-            connection.commit();
-            connection.setAutoCommit(oldAutoCommit);
-            return saleOrder;
-
+            con.commit();
+            return newOrderNumber;
         } catch (SQLException e) {
-            try { connection.rollback(); } catch (SQLException ignored) {}
+            try { con.rollback(); } catch (SQLException ignored) {}
             throw new DataAccessException("Insert SaleOrder failed", e);
         } finally {
-            try { connection.setAutoCommit(true); } catch (SQLException ignored) {}
+            try { con.setAutoCommit(oldAutoCommit); } catch (SQLException ignored) {}
         }
     }
 
-	public PreparedStatement getSelectByOrderNumberPS() {
-		return selectByOrderNumberPS;
+	@Override
+	public List<SaleOrder> findAll() throws DataAccessException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
-	public void setSelectByOrderNumberPS(PreparedStatement selectByOrderNumberPS) {
-		this.selectByOrderNumberPS = selectByOrderNumberPS;
+	@Override
+	public List<SaleOrder> findByCustomerId() throws DataAccessException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
-	public PreparedStatement getSelectPS() {
-		return selectPS;
+	@Override
+	public List<Orderline> findAllOrderLines() throws DataAccessException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
-	public void setSelectPS(PreparedStatement selectPS) {
-		this.selectPS = selectPS;
+	@Override
+	public List<Customer> findAllCustomers() throws DataAccessException {
+		// TODO Auto-generated method stub
+		return null;
 	}
-
-	public PreparedStatement getSelectByIDPS() {
-		return selectByIDPS;
-	}
-
-	public void setSelectByIDPS(PreparedStatement selectByIDPS) {
-		this.selectByIDPS = selectByIDPS;
-	}
-
-	public PreparedStatement getSelectAllOrderlinePS() {
-		return selectAllOrderlinePS;
-	}
-
-	public void setSelectAllOrderlinePS(PreparedStatement selectAllOrderlinePS) {
-		this.selectAllOrderlinePS = selectAllOrderlinePS;
-	}
-
 }
