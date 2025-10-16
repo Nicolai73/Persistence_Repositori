@@ -5,13 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import model.Orderline;
 import model.Product;
 
 public class DBProduct {
 
 	// HVIS IKKE GJORT: IMPLEMENTERE "Quantity" I SQL SCRIPT FOR Product:
-
-	private static final String PS_SELECT = "SELECT * FROM Product WHERE Name = ?";
 
 	PreparedStatement pstmt;
 
@@ -19,6 +18,10 @@ public class DBProduct {
 
 	}
 
+	
+	
+	
+	
 	public int getProductQuantityByName(String name) throws DataAccessException {
 		int quantity = -1;
 
@@ -38,40 +41,66 @@ public class DBProduct {
 		return quantity;
 	}
 
+	
+	
+	
+	
 	public void createProductUnits(String name, int requestedQty) throws DataAccessException {
-
+	   
+		Orderline orderline = new Orderline();
+		
 		int availableQty = getProductQuantityByName(name);
 
-		if (availableQty < requestedQty) {
-			throw new DataAccessException(
-					"Not enough stock available. Requested: " + requestedQty + ", Available: " + availableQty, null);
-		}
+	    if (availableQty < requestedQty) {
+	        throw new DataAccessException(
+	            "Not enough stock available. Requested: " + requestedQty + ", Available: " + availableQty, null);
+	    }
 
-		try (Connection connection = DBConnection.getInstance().getConnection();
-				PreparedStatement pstmt = connection
-						.prepareStatement("UPDATE Product SET Quantity = Quantity - ? WHERE Name = ?")) {
+	    try (Connection connection = DBConnection.getInstance().getConnection()) {
 
-			pstmt.setString(2, name);
-			pstmt.setInt(1, requestedQty);
+	        
+	        Product baseProduct = null;
+	        try (PreparedStatement selectStmt = connection.prepareStatement(
+	                "SELECT * FROM Product WHERE Name = ?")) {
 
-			int affectedRows = pstmt.executeUpdate();
+	            selectStmt.setString(1, name);
+	            ResultSet rs = selectStmt.executeQuery();
 
-			ResultSet rs = pstmt.executeQuery();
+	            if (rs.next()) {
+	                baseProduct = buildObject(rs);
+	            } else {
+	                throw new DataAccessException("Product not found: " + name, null);
+	            }
+	        }
 
-			if (rs.next()) {
-				buildObject(rs);
-			}
+	        
+	        try (PreparedStatement updateStmt = connection.prepareStatement(
+	                "UPDATE Product SET Quantity = Quantity - ? WHERE Name = ?")) {
 
-			if (affectedRows == 0) {
-				throw new DataAccessException("Failed to update product quantity.", null);
-			}
+	            updateStmt.setInt(1, requestedQty);
+	            updateStmt.setString(2, name);
 
-		} catch (SQLException e) {
-			throw new DataAccessException("Error updating product quantity", e);
-		}
+	            int affectedRows = updateStmt.executeUpdate();
+	            if (affectedRows == 0) {
+	                throw new DataAccessException("Failed to update product quantity.", null);
+	            }
+	        }
+
+	     
+	        for (int i = 0; i < requestedQty; i++) {
+	            // orderline.orderlines.add(baseProduct); 
+	        }
+
+	    } catch (SQLException e) {
+	        throw new DataAccessException("Error updating product quantity or creating units", e);
+	    }
 
 	}
 
+	
+	
+	
+	
 	private Product buildObject(ResultSet rs) throws SQLException {
 		int productNumber = rs.getInt("ProductNumber");
 		String name = rs.getString("Name");
@@ -83,4 +112,9 @@ public class DBProduct {
 
 		return new Product(productNumber, name, minStock, sku, description, brand, type);
 	}
+	
+	
+	
+	
+	
 }

@@ -5,6 +5,10 @@ public class Clothing extends Product {
 	private String size;
 	private String colour;
 	
+	public Clothing() {
+		super();
+	}
+	
 	public String getSize() {
 		return size;
 	}
