@@ -15,6 +15,7 @@ public class DBCustomer implements CustomerDAO {
 	private static final String PS_INSERT = "insert into Customer values (?,?,?,?,?,?,?)";
 	private static final String PS_SELECT_BY_EMAIL = "SELECT * FROM Customer WHERE email = ?";
 	private static final String PS_SELECT = "SELECT* FROM Customer";
+
 	private PreparedStatement insertPS;
 	private PreparedStatement selectByEmailPS;
 	private PreparedStatement selectPS;
