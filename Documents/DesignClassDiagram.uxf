@@ -125,7 +125,7 @@
     </coordinates>
     <panel_attributes>Orderline
 --
-quantity: int
+-quantity: int
 --
 +getters &amp; setters</panel_attributes>
     <additional_attributes/>
