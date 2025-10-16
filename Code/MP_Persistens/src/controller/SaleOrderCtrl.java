@@ -1,6 +1,6 @@
 package controller;
 import model.*;
-
+import db.*;
 
 public class SaleOrderCtrl {
 	private Customer customer;
@@ -14,8 +14,16 @@ public class SaleOrderCtrl {
 	}
 	
 	public Customer findCustomer(String email) {
+		return customer;
 		
 	}
 	
+	public Product findProduct(int ID) {
+		return product;
+	}
+	
+	public SaleOrder findSaleOrder (int OrderNumber) {
+		return saleOrder;
+	}
 }
 

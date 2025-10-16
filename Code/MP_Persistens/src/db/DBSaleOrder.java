@@ -3,7 +3,7 @@ package db;
 import model.*;
 import java.sql.*;
 
-public class DBSaleOrder {
+public class DBSaleOrder implements SaleOrderDAO {
 	
 	private static final String PS_INSERT = "insert into SaleOrder values (?,?,?,?,?,?,?,?)";
 	private static final String PS_SELECT_BY_ORDERNUMBER = "SELECT * FROM SaleOrder WHERE OrderNumber = ?";
@@ -30,7 +30,7 @@ public class DBSaleOrder {
 		Connection connection = DBConnection.getInstance().getConnection();
 		
 		try {
-			insertOlPS = connection.prepareStatement(PS_INSERT, Statement.RETURN_GENERATED_KEYS);
+			insertPS = connection.prepareStatement(PS_INSERT, Statement.RETURN_GENERATED_KEYS);
 			selectByOrderNumberPS = connection.prepareStatement(PS_SELECT_BY_ORDERNUMBER);
 			selectPS = connection.prepareStatement(PS_SELECT);
 			
@@ -38,15 +38,8 @@ public class DBSaleOrder {
 			throw new DataAccessException(null, e);
 		}
 			
-			try {
-				insertPS = connection.prepareStatement(PS_INSERT_ORDERLINE, Statement.RETURN_GENERATED_KEYS);
-				selectByIDPS = connection.prepareStatement(PS_SELECT_BY_ID);
-				selectAllOrderlinePS = connection.prepareStatement(PS_SELECT_FROM_ALL_ORDERLINE);
-			} catch (Exception e) {
-				throw new DataAccessException(null, e);
-			}
+	}
 			
-
 			@Override
 			public SaleOrder insert(SaleOrder saleOrder) throws DataAccessException {
 				int orderNumber = 0;
@@ -73,28 +66,7 @@ public class DBSaleOrder {
 				return saleOrder;
 			} 
 			
-			insert(Orderline ol) throws DataAccessException {
-				int ID = 0;
-				try {
-					insertOlPS.setInt(1, Orderline.getQuantity());
-					insertOlPS.setInt(2, Orderline.getSaleOrderID());
-					insertOlPS.setInt(3, Orderline.getProductID());
-					
-					insertOlPS.executeUpdate();
-					
-					ResultSet rs = insertOlPS.getGeneratedKeys();
-					if(rs.next()) {
-						ID = rs.getInt(1);
-					}
-				} catch (Exception e) {
-					throw new DataAccessException(null, e);
-				}
-				ol.setID(ID);
-				return ol;
-			
-			
 
-		}
 	
 
 }

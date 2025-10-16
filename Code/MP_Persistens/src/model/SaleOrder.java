@@ -2,19 +2,19 @@ package model;
 
 import java.sql.Date;
 import java.util.*;
-
-public class SaleOrder {
+import model.*
+;public class SaleOrder {
 	
 	private List<Orderline> orderlines = new ArrayList<>();
 	
-	private Date date;
-	private int amount;
-	private String deliveryStatus;
-	private Date deliveryDate;
-	private int customerID;
-	private int discountID;
-	private int invoiceID;
-	private int freightID;
+	private static Date date;
+	private static int amount;
+	private static String deliveryStatus;
+	private static Date deliveryDate;
+	private static int customerID;
+	private static int discountID;
+	private static int invoiceID;
+	private static int freightID;
 	
 	
 	public SaleOrder(Date date, int amount, String deliveryStatus, Date deliveryDate, int customerID, int discountID,
@@ -30,7 +30,7 @@ public class SaleOrder {
 	}
 
 
-	public Date getDate() {
+	public static Date getDate() {
 		return date;
 	}
 
@@ -40,7 +40,7 @@ public class SaleOrder {
 	}
 
 
-	public int getAmount() {
+	public static int getAmount() {
 		return amount;
 	}
 
@@ -50,7 +50,7 @@ public class SaleOrder {
 	}
 
 
-	public String getDeliveryStatus() {
+	public static String getDeliveryStatus() {
 		return deliveryStatus;
 	}
 
@@ -60,7 +60,7 @@ public class SaleOrder {
 	}
 
 
-	public Date getDeliveryDate() {
+	public static Date getDeliveryDate() {
 		return deliveryDate;
 	}
 
@@ -70,7 +70,7 @@ public class SaleOrder {
 	}
 
 
-	public int getCustomerID() {
+	public static int getCustomerID() {
 		return customerID;
 	}
 
@@ -80,7 +80,7 @@ public class SaleOrder {
 	}
 
 
-	public int getDiscountID() {
+	public static int getDiscountID() {
 		return discountID;
 	}
 
@@ -90,7 +90,7 @@ public class SaleOrder {
 	}
 
 
-	public int getInvoiceID() {
+	public static int getInvoiceID() {
 		return invoiceID;
 	}
 
@@ -100,7 +100,7 @@ public class SaleOrder {
 	}
 
 
-	public int getFreightID() {
+	public static int getFreightID() {
 		return freightID;
 	}
 
