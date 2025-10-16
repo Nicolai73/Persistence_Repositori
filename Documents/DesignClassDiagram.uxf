@@ -1043,22 +1043,22 @@ StockDBIF
     <coordinates>
       <x>2710</x>
       <y>2185</y>
-      <w>430</w>
-      <h>90</h>
+      <w>435</w>
+      <h>200</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>840.0;160.0;810.0;160.0;810.0;30.0;10.0;30.0;10.0;10.0</additional_attributes>
+    <additional_attributes>850.0;380.0;810.0;380.0;810.0;30.0;10.0;30.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>2745</x>
       <y>2175</y>
-      <w>625</w>
-      <h>100</h>
+      <w>630</w>
+      <h>210</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>1230.0;180.0;1190.0;180.0;1190.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>1240.0;400.0;1190.0;400.0;1190.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
