@@ -5,11 +5,13 @@
     <id>UMLClass</id>
     <coordinates>
       <x>2585</x>
-      <y>2135</y>
+      <y>2125</y>
       <w>165</w>
-      <h>55</h>
+      <h>65</h>
     </coordinates>
     <panel_attributes>SaleOrderUI
+--
+
 --
 -&lt;&lt;create&gt;&gt;SaleOrderUI():
 +findCustomer(String: email): customer
@@ -281,7 +283,7 @@ addProductToOrderline(product: Product, Quantity: int):Orderline</panel_attribut
       <x>2205</x>
       <y>2245</y>
       <w>155</w>
-      <h>40</h>
+      <h>45</h>
     </coordinates>
     <panel_attributes>orderlineController
 --
@@ -379,37 +381,37 @@ _+getInstance():DBconnection_
     <id>Relation</id>
     <coordinates>
       <x>2185</x>
-      <y>2280</y>
+      <y>2285</y>
       <w>50</w>
-      <h>400</h>
+      <h>395</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 </panel_attributes>
-    <additional_attributes>80.0;780.0;10.0;780.0;10.0;70.0;60.0;70.0;60.0;10.0</additional_attributes>
+    <additional_attributes>80.0;770.0;10.0;770.0;10.0;60.0;60.0;60.0;60.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>2200</x>
-      <y>2280</y>
+      <y>2285</y>
       <w>40</w>
-      <h>200</h>
+      <h>195</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 </panel_attributes>
-    <additional_attributes>60.0;380.0;60.0;340.0;10.0;340.0;10.0;90.0;60.0;90.0;60.0;10.0</additional_attributes>
+    <additional_attributes>60.0;370.0;60.0;330.0;10.0;330.0;10.0;80.0;60.0;80.0;60.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>2335</x>
-      <y>2280</y>
+      <y>2285</y>
       <w>15</w>
-      <h>80</h>
+      <h>75</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
-    <additional_attributes>10.0;140.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;130.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -439,10 +441,10 @@ _+getInstance():DBconnection_
       <x>2725</x>
       <y>2515</y>
       <w>265</w>
-      <h>80</h>
+      <h>70</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;140.0;510.0;140.0;510.0;10.0</additional_attributes>
+    <additional_attributes>10.0;120.0;510.0;120.0;510.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -450,10 +452,10 @@ _+getInstance():DBconnection_
       <x>2725</x>
       <y>2515</y>
       <w>75</w>
-      <h>70</h>
+      <h>60</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;120.0;130.0;120.0;130.0;10.0</additional_attributes>
+    <additional_attributes>10.0;100.0;130.0;100.0;130.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -658,10 +660,10 @@ _+getInstance():DBconnection_
       <x>2665</x>
       <y>2075</y>
       <w>15</w>
-      <h>70</h>
+      <h>60</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -810,10 +812,10 @@ _+getInstance():DBAccessException_
       <x>2725</x>
       <y>2515</y>
       <w>490</w>
-      <h>60</h>
+      <h>80</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;100.0;960.0;100.0;960.0;10.0</additional_attributes>
+    <additional_attributes>10.0;140.0;960.0;140.0;960.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -1061,7 +1063,7 @@ StockDBIF
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2820</x>
+      <x>2825</x>
       <y>2765</y>
       <w>80</w>
       <h>45</h>
@@ -1077,7 +1079,7 @@ StockDBIF
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2910</x>
+      <x>2915</x>
       <y>2765</y>
       <w>80</w>
       <h>45</h>
@@ -1093,7 +1095,7 @@ StockDBIF
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3000</x>
+      <x>3005</x>
       <y>2765</y>
       <w>80</w>
       <h>45</h>
@@ -1109,7 +1111,7 @@ StockDBIF
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3090</x>
+      <x>3095</x>
       <y>2765</y>
       <w>80</w>
       <h>45</h>
@@ -1125,7 +1127,7 @@ StockDBIF
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2945</x>
+      <x>2950</x>
       <y>2730</y>
       <w>50</w>
       <h>45</h>
@@ -1157,7 +1159,7 @@ StockDBIF
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2855</x>
+      <x>2860</x>
       <y>2730</y>
       <w>130</w>
       <h>45</h>
@@ -1168,7 +1170,7 @@ StockDBIF
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2990</x>
+      <x>2995</x>
       <y>2730</y>
       <w>60</w>
       <h>45</h>
@@ -1179,7 +1181,7 @@ StockDBIF
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>3000</x>
+      <x>3005</x>
       <y>2730</y>
       <w>140</w>
       <h>45</h>
