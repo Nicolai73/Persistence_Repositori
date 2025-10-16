@@ -1,19 +1,12 @@
 package db;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 
-/**
- * 
- * @author knol
- * @version 2018-08-30
- * revised by BON
- * @version 2022-09-28
- *  * revised by GIBE
- * @version 2024, 2025
- */
+import db.DataAccessException;
+
+
+
 public class DBConnection {
 	private Connection connection = null;
 	private static DBConnection dbConnection;
@@ -31,6 +24,7 @@ public class DBConnection {
 				DBNAME);
 		try {
 			connection = DriverManager.getConnection(urlString, USERNAME, PASSWORD);
+			System.out.println("Connected");
 		} catch (SQLException e) {
 			throw new DataAccessException(String.format("Could not connect to database %s@%s:%s user %s", DBNAME,
 					SERVERNAME, PORTNUMBER, USERNAME), e);
