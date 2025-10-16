@@ -313,13 +313,13 @@ _+getInstance():DBconnection_
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2165</x>
+      <x>2275</x>
       <y>2400</y>
-      <w>490</w>
+      <w>380</w>
       <h>170</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>960.0;320.0;960.0;270.0;10.0;270.0;10.0;30.0;230.0;30.0;230.0;10.0</additional_attributes>
+    <additional_attributes>740.0;320.0;740.0;270.0;200.0;270.0;200.0;30.0;10.0;30.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
