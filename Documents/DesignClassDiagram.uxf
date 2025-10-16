@@ -795,7 +795,7 @@ _+getInstance():DBAccessException_
       <w>145</w>
       <h>50</h>
     </coordinates>
-    <panel_attributes>DBProduct
+    <panel_attributes>DBStock
 --
 +Product: String
 --
@@ -854,7 +854,7 @@ WarehouseDBIF
       <h>55</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Interface&gt;&gt;
-WarehouseDBIF
+StockDBIF
 --
 
 --
