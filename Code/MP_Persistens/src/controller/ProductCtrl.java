@@ -1,5 +1,6 @@
 package controller;
 
+import db.DBProduct;
 import db.DataAccessException;
 import db.ProductDAO;
 import model.Orderline;
@@ -9,7 +10,7 @@ public class ProductCtrl {
 	private ProductDAO PDAO;
 	
 	ProductCtrl() {
-	
+	PDAO = new DBProduct();
 	}
 	
 	public int findQuantityByName(String name) throws DataAccessException {
