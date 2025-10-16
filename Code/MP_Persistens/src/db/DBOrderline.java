@@ -38,7 +38,7 @@ public class DBOrderline implements OrderlineDAO {
 
         try {
             insertPS.setInt(1, currentOrderId);
-            insertPS.setInt(2, product.getName());
+            insertPS.setString(2, product.getName());
             insertPS.setInt(3, quantity);
             
 
@@ -48,7 +48,6 @@ public class DBOrderline implements OrderlineDAO {
             if (rs.next()) {
                 generatedId = rs.getInt(1);
             }
-
             orderLine = new Orderline(generatedId, currentOrderId, product.getName(), quantity);
 
         } catch (SQLException e) {
