@@ -1,10 +1,8 @@
 package db;
 
-import java.lang.module.ModuleDescriptor.Builder;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLClientInfoException;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -22,11 +20,11 @@ public class DBCustomer implements CustomerDAO {
 	private PreparedStatement selectPS;
 	
 	
-	public DBCustomer() throws DataAccessException {
+	public DBCustomer() throws DataAccessException, SQLException {
 		initPreparedStatement();
 	}
 	
-	private void initPreparedStatement()throws DataAccessException {
+	private void initPreparedStatement()throws DataAccessException, SQLException {
 		Connection connection = DBConnection.getInstance().getConnection();
 		
 		try {
@@ -50,7 +48,7 @@ public class DBCustomer implements CustomerDAO {
 			insertPS.setString(4, customer.getCity());
 			insertPS.setString(5, customer.getPhoneNO());
 			insertPS.setInt(6, customer.getType());
-			insertPS.setString(1, customer.getEmail());
+			insertPS.setString(7, customer.getEmail());
 			
 			insertPS.executeUpdate();
 			
@@ -119,6 +117,12 @@ public class DBCustomer implements CustomerDAO {
 		String email = rs.getString(7);
 		
 		return new Customer(name, address, zipcode, city, phoneNo, type, email);
+	}
+
+	@Override
+	public Customer findCustomer(String email) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
