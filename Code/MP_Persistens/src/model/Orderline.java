@@ -1,20 +1,12 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Orderline {
 
    
-    private int quantity;
-    
-
-    public Orderline(int quantity) {
-       
-        this.quantity = quantity;
-            
-    }
-    
-	public int getQuantity() {
-		return quantity;
-	}
+    public ArrayList<Product> products;
+   
 
 }
     

@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import model.Orderline;
 import model.Product;
 
-public class DBProduct {
+public class DBProduct implements ProductDAO {
 
 	// HVIS IKKE GJORT: IMPLEMENTERE "Quantity" I SQL SCRIPT FOR Product:
 
@@ -45,7 +45,7 @@ public class DBProduct {
 	
 	
 	
-	public void createProductUnits(String name, int requestedQty) throws DataAccessException {
+	public Orderline createProductUnits(String name, int requestedQty) throws DataAccessException {
 	   
 		Orderline orderline = new Orderline();
 		
@@ -88,13 +88,15 @@ public class DBProduct {
 
 	     
 	        for (int i = 0; i < requestedQty; i++) {
-	            // orderline.orderlines.add(baseProduct); 
+	            orderline.products.add(baseProduct); 
 	        }
 
 	    } catch (SQLException e) {
 	        throw new DataAccessException("Error updating product quantity or creating units", e);
 	    }
 
+	    return orderline;
+	    
 	}
 
 	
