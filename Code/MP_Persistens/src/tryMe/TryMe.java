@@ -1,9 +1,7 @@
 package tryMe;
-import java.math.BigDecimal;
 import java.sql.SQLException;
 
 
-import model.*;
 import db.*;
 
 public class TryMe {

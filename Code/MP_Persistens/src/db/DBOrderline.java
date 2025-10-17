@@ -1,60 +1,45 @@
 package db;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
 import model.Orderline;
 import model.Product;
 
+import java.sql.*;
+
 public class DBOrderline implements OrderlineDAO {
+    private static final String PS_INSERT =
+        "INSERT INTO OrderlineItem (Quantity, SaleOrderID, ProductID) VALUES (?, ?, ?)";
 
-    private static final String PS_INSERT = 
-        "INSERT INTO OrderLine (orderId, productId, quantity, unitPrice) VALUES (?, ?, ?, ?)";
-
-    private PreparedStatement insertPS;
-    private int currentOrderId; // the active order to which we’re adding products
+    private final int orderId;
+    private final PreparedStatement insertPS;
 
     public DBOrderline(int orderId) throws DataAccessException {
-        this.currentOrderId = orderId;
-        initPreparedStatement();
-    }
-
-    private void initPreparedStatement() throws DataAccessException {
-        Connection connection = DBConnection.getInstance().getConnection();
+        this.orderId = orderId;
         try {
-            insertPS = connection.prepareStatement(PS_INSERT, Statement.RETURN_GENERATED_KEYS);
+            Connection con = DBConnection.getInstance().getConnection();
+            insertPS = con.prepareStatement(PS_INSERT, Statement.RETURN_GENERATED_KEYS);
         } catch (SQLException e) {
-            throw new DataAccessException("Error initializing prepared statement for OrderLine", e);
+            throw new DataAccessException("Prepare insert orderline failed", e);
         }
     }
 
     @Override
     public Orderline addProductToOrderline(Product product, int quantity) throws DataAccessException {
-        int generatedId = -1;
-        Orderline orderLine = null;
-
         try {
-            insertPS.setInt(1, currentOrderId);
-            insertPS.setInt(2, product.getName());
-            insertPS.setInt(3, quantity);
-            
+            // IMPORTANT: ProductID is [Product].ID in your schema
+            int productId = product.getId(); // make sure Product has getId()
 
+            insertPS.setInt(1, quantity);
+            insertPS.setInt(2, orderId);
+            insertPS.setInt(3, productId);
             insertPS.executeUpdate();
 
-            ResultSet rs = insertPS.getGeneratedKeys();
-            if (rs.next()) {
-                generatedId = rs.getInt(1);
+            int newId = -1;
+            try (ResultSet rs = insertPS.getGeneratedKeys()) {
+                if (rs.next()) newId = rs.getInt(1);
             }
-
-            orderLine = new Orderline(generatedId, currentOrderId, product.getName(), quantity);
-
+            return new Orderline(newId, quantity, productId);
         } catch (SQLException e) {
-            throw new DataAccessException("Error adding product to OrderLine", e);
+            throw new DataAccessException("addProductToOrderline failed", e);
         }
-
-        return orderLine;
     }
 }

@@ -14,7 +14,7 @@ public class DBProduct implements ProductDAO {
 
 	PreparedStatement pstmt;
 
-	DBProduct() {
+	public DBProduct() {
 
 	}
 
@@ -47,7 +47,7 @@ public class DBProduct implements ProductDAO {
 	
 	public Orderline createProductUnits(String name, int requestedQty) throws DataAccessException {
 	   
-		Orderline orderline = new Orderline();
+		Orderline orderline = new Orderline(requestedQty, requestedQty, requestedQty, null);
 		
 		int availableQty = getProductQuantityByName(name);
 

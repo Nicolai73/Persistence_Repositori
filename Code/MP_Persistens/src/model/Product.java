@@ -68,6 +68,11 @@ public class Product {
 		this.type = type;
 	}
 
+	public int getId() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 	
 	
 	
