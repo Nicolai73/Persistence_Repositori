@@ -19,7 +19,7 @@ public class DBConnection {
 	private static final String PASSWORD = "Password1!";
 
 	// constructor - private because of singleton pattern
-	private DBConnection() throws DataAccessException {
+	public DBConnection() throws DataAccessException {
 		String urlString = String.format("jdbc:sqlserver://%s:%s;databaseName=%s;encrypt=false", SERVERNAME, PORTNUMBER,
 				DBNAME);
 		try {

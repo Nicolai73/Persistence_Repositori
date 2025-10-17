@@ -2,7 +2,9 @@ package model;
 
 public class Customer {
 	
-	private String name;
+	private int id;
+	private String Fname;
+	private String Lname;
 	private String address;
 	private int zipcode;
 	private String city;
@@ -11,25 +13,46 @@ public class Customer {
 	private String email;
 	
 	
-	public Customer(String name, String address, int zipcode, String city, String phoneNO, int type, String email) {
+	public Customer(int id, String Fname, String Lname, String address, String phoneNO, String email, int type, int zipcode) {
 		
-		this.name = name;
+		this.id = id;
+		this.Fname = Fname;
+		this.Lname = Lname;
 		this.address = address;
 		this.zipcode = zipcode;
-		this.city = city;
 		this.phoneNO = phoneNO;
 		this.type = type;
 		this.email = email;
 	}
 
 
-	public String getName() {
-		return name;
+	public int getId() {
+		return id;
 	}
 
 
-	public void setName(String name) {
-		this.name = name;
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	
+	public String getFname() {
+		return Fname;
+	}
+
+
+	public void setFname(String fname) {
+		Fname = fname;
+	}
+
+
+	public String getLname() {
+		return Lname;
+	}
+
+
+	public void setLname(String lname) {
+		Lname = lname;
 	}
 
 
@@ -93,6 +116,17 @@ public class Customer {
 	}
 
 	
+	public String toReadableString() {
+	    return "ID: " + id + "\n" +
+	           "First Name: " + Fname + "\n" +
+	           "Last Name: " + Lname + "\n" +
+	           "Address: " + address + "\n" +
+	           "Zip Code: " + zipcode + "\n" +
+	           "City: " + city + "\n" +
+	           "Phone Number: " + phoneNO + "\n" +
+	           "Type: " + type + "\n" +
+	           "Email: " + email;
+	}
 
 	
 	

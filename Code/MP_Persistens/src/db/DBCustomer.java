@@ -43,13 +43,13 @@ public class DBCustomer implements CustomerDAO {
 	public Customer insert(Customer customer) throws DataAccessException {
 		String email = null;
 		try {
-			insertPS.setString(1, customer.getName());
-			insertPS.setString(2, customer.getAddress());
-			insertPS.setInt(3, customer.getZipcode());
-			insertPS.setString(4, customer.getCity());
-			insertPS.setString(5, customer.getPhoneNO());
+			insertPS.setString(1, customer.getFname());
+			insertPS.setString(2, customer.getLname());
+			insertPS.setString(3, customer.getAddress());
+			insertPS.setString(4, customer.getPhoneNO());
+			insertPS.setString(5, customer.getEmail());
 			insertPS.setInt(6, customer.getType());
-			insertPS.setString(7, customer.getEmail());
+			insertPS.setInt(7, customer.getZipcode());
 			
 			insertPS.executeUpdate();
 			
@@ -67,19 +67,11 @@ public class DBCustomer implements CustomerDAO {
 	@Override
 	public Customer findByEmail(String email) throws DataAccessException{
 		Customer customer = null;
-		ResultSet rs;
+		
 		try {
 			selectByEmailPS.setString(1, email);
+			ResultSet rs = selectByEmailPS.executeQuery();
 			
-		} catch (Exception e) {
-			throw new DataAccessException(null, e);
-		}
-		try {
-			rs = selectByEmailPS.executeQuery();
-			
-		} catch (Exception e) {
-			throw new DataAccessException(null, e);		}
-		try {
 			if(rs.next()) {
 				customer = buildObject(rs);
 			}
@@ -87,6 +79,7 @@ public class DBCustomer implements CustomerDAO {
 		} catch (Exception e) {
 			throw new DataAccessException(null, e);
 		}
+		
 		return customer;
 	}
 
@@ -109,15 +102,17 @@ public class DBCustomer implements CustomerDAO {
 	
 
 	private Customer buildObject(ResultSet rs) throws SQLException {
-		String name = rs.getString(1);
-		String address = rs.getString(2);
-		int zipcode = rs.getInt(3);
-		String city = rs.getString(4);
+		int id = rs.getInt(1);
+		String fname = rs.getString(2);
+		String lname = rs.getString(3);
+		String address = rs.getString(4);
 		String phoneNo = rs.getString(5);
-		int type = rs.getInt(6);
-		String email = rs.getString(7);
+		String email = rs.getString(6);
+		int type = rs.getInt(7);	
+		int zipcode = rs.getInt(8);
 		
-		return new Customer(name, address, zipcode, city, phoneNo, type, email);
+		
+		return new Customer(id, fname, lname, address, phoneNo, email, type, zipcode);
 	}
 
 	@Override

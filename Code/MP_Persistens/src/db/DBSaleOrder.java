@@ -158,4 +158,12 @@ public class DBSaleOrder implements SaleOrderDAO {
 		return new SaleOrder(date, amount, deliveryStatus, deliveryDate, customerID, discountID, invoiceID, freightID, orderNumber);
 
 	}
+
+	@Override
+	public SaleOrder createOrder(int customerID) {
+		
+	int id = customerID;
+		
+		return new SaleOrder(id);
+	}
 }
