@@ -1,9 +1,7 @@
 package model;
 
 import java.sql.Date;
-import java.util.*;
-import model.*
-;public class SaleOrder {
+import java.util.*;public class SaleOrder {
 	
 	private List<Orderline> orderlines = new ArrayList<>();
 	
@@ -130,15 +128,6 @@ import model.*
 	public void setOrderNumber(int orderNumber) {
 		this.orderNumber = orderNumber;
 	}
-
-<<<<<<< Updated upstream
-	dsdsd
-
-dsdsd
-=======
-
->>>>>>> Stashed changes
-
 	
 	
 }

@@ -88,7 +88,7 @@ public class DBProduct implements ProductDAO {
 
 	     
 	        for (int i = 0; i < requestedQty; i++) {
-	            orderline.products.add(baseProduct); 
+	            orderline.getProducts().add(baseProduct); 
 	        }
 
 	    } catch (SQLException e) {
@@ -113,6 +113,16 @@ public class DBProduct implements ProductDAO {
 		int type = rs.getInt("Type");
 
 		return new Product(productNumber, name, minStock, sku, description, brand, type);
+	}
+
+
+
+
+
+	@Override
+	public String getProductByName(String name) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

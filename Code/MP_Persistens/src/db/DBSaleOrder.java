@@ -140,4 +140,10 @@ public class DBSaleOrder implements SaleOrderDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<SaleOrder> findByCustomerId(int customerId) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
