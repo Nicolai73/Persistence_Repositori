@@ -15,9 +15,9 @@ import java.util.*;public class SaleOrder {
 	private int freightID;
 	private int orderNumber;
 	
-	public SaleOrder(List<Orderline> orderlines, Date date, int amount, String deliveryStatus, Date deliveryDate,
+	public SaleOrder(Date date, int amount, String deliveryStatus, Date deliveryDate,
 			int customerID, int discountID, int invoiceID, int freightID, int orderNumber) {
-		this.orderlines = orderlines;
+		
 		this.date = date;
 		this.amount = amount;
 		this.deliveryStatus = deliveryStatus;
@@ -30,6 +30,11 @@ import java.util.*;public class SaleOrder {
 	}
 	
 	
+	public SaleOrder(ArrayList<Orderline> orderlines) {
+		this.orderlines = orderlines;
+	}
+
+
 	public List<Orderline> getOrderlines() {
 		return orderlines;
 	}

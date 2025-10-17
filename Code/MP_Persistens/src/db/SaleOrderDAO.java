@@ -7,7 +7,8 @@ import model.SaleOrder;
 import model.Orderline;
 
 public interface SaleOrderDAO {
-    SaleOrder insert(SaleOrder saleOrder) throws DataAccessException;
+    int insert(SaleOrder saleOrder) throws DataAccessException;
+    
     SaleOrder findById(int orderNumber) throws DataAccessException;
 
     List<SaleOrder> findAll() throws DataAccessException;

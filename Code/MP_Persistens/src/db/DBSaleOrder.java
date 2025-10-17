@@ -3,6 +3,7 @@ package db;
 import model.SaleOrder;
 import model.Customer;
 import model.Orderline;
+import model.Product;
 
 import java.sql.*;
 import java.util.List;
@@ -29,28 +30,29 @@ public class DBSaleOrder implements SaleOrderDAO {
 
     @Override
     public SaleOrder findById(int orderNumber) throws DataAccessException {
+    	SaleOrder saleOrder = null;
         try {
-            selectByIdPS.setInt(1, orderNumber);
+            try {
+				selectByIdPS.setInt(1, orderNumber);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
             try (ResultSet rs = selectByIdPS.executeQuery()) {
-                if (!rs.next()) return null;
+                if (!rs.next()) {
 
-                SaleOrder so = new SaleOrder();
-                so.setOrderNumber(rs.getInt("OrderNumber"));
-                so.setDate(rs.getDate("Date"));
-                so.setAmount(rs.getInt("Amount"));
-                so.setDeliveryStatus(rs.getString("DeliveryStatus"));
-                so.setDeliveryDate(rs.getDate("DeliveryDate"));
-                so.setCustomerID(rs.getInt("CustomerID"));
-                so.setDiscountID(rs.getInt("DiscountID"));
-                so.setInvoiceID(rs.getInt("InvoiceID"));
-                so.setFreightID(rs.getInt("FreightID"));
-                return so;
+               saleOrder = buildObject(rs);
             }
         } catch (SQLException e) {
             throw new DataAccessException("findById failed", e);
         }
+    } finally {
+    	
     }
-
+		return saleOrder;
+    }
+    
+    
     @Override
     public int insert(SaleOrder saleOrder) throws DataAccessException {
         Connection con = DBConnection.getInstance().getConnection();
@@ -64,20 +66,20 @@ public class DBSaleOrder implements SaleOrderDAO {
         try {
             con.setAutoCommit(false);
 
-            insertPS.setDate(1, SaleOrder.getDate());
-            insertPS.setInt(2, SaleOrder.getAmount());
-            insertPS.setString(3, SaleOrder.getDeliveryStatus());
+            insertPS.setDate(1, saleOrder.getDate());
+            insertPS.setInt(2, saleOrder.getAmount());
+            insertPS.setString(3, saleOrder.getDeliveryStatus());
 
-            if (SaleOrder.getDeliveryDate() == null) {
+            if (saleOrder.getDeliveryDate() == null) {
                 insertPS.setNull(4, Types.DATE);
             } else {
-                insertPS.setDate(4, SaleOrder.getDeliveryDate());
+                insertPS.setDate(4, saleOrder.getDeliveryDate());
             }
 
-            insertPS.setInt(5, SaleOrder.getCustomerID());
-            insertPS.setInt(6, SaleOrder.getDiscountID());
-            insertPS.setInt(7, SaleOrder.getInvoiceID());
-            insertPS.setInt(8, SaleOrder.getFreightID());
+            insertPS.setInt(5, saleOrder.getCustomerID());
+            insertPS.setInt(6, saleOrder.getDiscountID());
+            insertPS.setInt(7, saleOrder.getInvoiceID());
+            insertPS.setInt(8, saleOrder.getFreightID());
 
             insertPS.executeUpdate();
 
@@ -122,13 +124,7 @@ public class DBSaleOrder implements SaleOrderDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	public List<SaleOrder> findByCustomerId() throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 	@Override
 	public List<Orderline> findAllOrderLines() throws DataAccessException {
 		// TODO Auto-generated method stub
@@ -145,5 +141,21 @@ public class DBSaleOrder implements SaleOrderDAO {
 	public List<SaleOrder> findByCustomerId(int customerId) throws DataAccessException {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+
+	private SaleOrder buildObject(ResultSet rs) throws SQLException {
+		int orderNumber = rs.getInt("OrderNumber");
+		Date date = rs.getDate("Date");
+		int amount = rs.getInt("Amount");
+		String deliveryStatus = rs.getString("DeliveryStatus");
+		Date deliveryDate = rs.getDate("DeliveryDate");
+		int customerID = rs.getInt("CustomerID");
+		int discountID = rs.getInt("DiscountID");
+		int invoiceID = rs.getInt("InvoiceID");
+		int freightID = rs.getInt("FreightID");
+
+		return new SaleOrder(date, amount, deliveryStatus, deliveryDate, customerID, discountID, invoiceID, freightID, orderNumber);
+
 	}
 }
