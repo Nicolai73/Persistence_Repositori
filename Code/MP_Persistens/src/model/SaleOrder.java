@@ -34,6 +34,9 @@ import java.util.*;public class SaleOrder {
 		this.orderlines = orderlines;
 	}
 
+public SaleOrder(int customerID) {
+	this.customerID = customerID;
+}
 
 	public List<Orderline> getOrderlines() {
 		return orderlines;
